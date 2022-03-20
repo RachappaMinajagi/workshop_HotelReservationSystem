@@ -15,7 +15,8 @@ package workShopHotelReservationSystem;
       a given Date Range
       I/P – 11Sep2020, 12Sep2020
       O/P - Ridgewood & Total rate 370.
-      
+   UC9:-Ability to add special rates for reward customers as a part of Loyalty Program - For Lakewood for Reward Customer Weekday
+      For Bridgewood $110 and $50
  */
 
 import java.time.LocalDate;
@@ -53,16 +54,42 @@ public class HotelReservation {
 	public List<Hotel> getHotelList() {
 		return this.hotels;
 	}
+	/*
+	 * Create a Array list For Cheapest Customer
+	 */
+
+	public Map<Hotel, Integer> searchFor(String date1, String date2, String hotelType, String customerType) {
+
+		int totalDays = countTotalDays(date1, date2);
+		int weekDays = countWeekDays(date1, date2);
+		int weekendDays = totalDays - weekDays;
+
+		if (hotelType.equals("cheapest") && customerType.equals("regular"))
+			return searchForCheapestHotels(weekDays, weekendDays, "regular");
+		if (hotelType.equals("cheapest") && customerType.equals("rewards"))
+			return searchForCheapestHotels(weekDays, weekendDays, "rewards");
+		if (hotelType.equals("best") && customerType.equals("regular"))
+			return searchForBestRatedHotels(weekDays, weekendDays);
+		if (hotelType.equals("best") && customerType.equals("rewards"))
+			return searchForBestRatedHotels(weekDays, weekendDays);
+		else
+			return null;
+	}
 
 	public Map<Hotel, Integer> searchFor(String date1, String date2, String type) {
 		int totalDays = countTotalDays(date1, date2);
 		int weekDays = countWeekDays(date1, date2);
 		int weekendDays = totalDays - weekDays;
 		if (type.equals("cheapest"))
-			return searchForCheapestHotels(weekDays, weekendDays);
+			return getCheapestHotels(weekDays, weekendDays);
 		else
 			return searchForBestRatedHotels(weekDays, weekendDays);
 
+	}
+
+	private Map<Hotel, Integer> getCheapestHotels(int weekDays, int weekendDays) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public Map<Hotel, Integer> getCheapestHotels(String date1, String date2) {
@@ -70,7 +97,7 @@ public class HotelReservation {
 		return cheapestHotels;
 	}
 
-	public Map<Hotel, Integer> searchForCheapestHotels(int weekDays, int weekendDays) {
+	public Map<Hotel, Integer> searchForCheapestHotels(int weekDays, int weekendDays, String string) {
 		Map<Hotel, Integer> hotelCosts = new HashMap<>();
 		Map<Hotel, Integer> sortedHotelCosts = new HashMap<>();
 		if (hotels.size() == 0)

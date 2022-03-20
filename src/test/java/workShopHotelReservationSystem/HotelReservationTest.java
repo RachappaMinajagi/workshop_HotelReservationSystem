@@ -111,14 +111,13 @@ public class HotelReservationTest {
 				(k, v) -> System.out.println(k.getName() + ", Rating : " + k.getRating() + " and Total Rate " + v));
 		assertNotNull(result);
 	}
-	
+
 	/*
 	 * / hotel added rewards.
 	 */
 
 	@Test
-	public void whenHotelsAddedShouldAddRewardsCustomerRate() 
-	{
+	public void whenHotelsAddedShouldAddRewardsCustomerRate() {
 		Hotel hotel1 = new Hotel("Lakewood", 110, 90, 3, 80, 80);
 		Hotel hotel2 = new Hotel("Bridgewood", 150, 50, 4, 110, 50);
 		Hotel hotel3 = new Hotel("Ridgewood", 220, 150, 5, 100, 40);
@@ -132,5 +131,24 @@ public class HotelReservationTest {
 				&& hotelList.get(1).getRewardsWeekdayRate() == 110 && hotelList.get(2).getRewardsWeekendRate() == 40
 				&& hotelList.get(2).getRewardsWeekdayRate() == 100;
 		assertTrue(result);
+	}
+
+	/*
+	 * /cheapest best rated hotel for rewards customer.
+	 */
+	@Test
+	public void whenGivenDateRange_ShouldReturn_CheapestAndBestRatedHotelForRewardsCustomer() {
+		Hotel hotel1 = new Hotel("Lakewood", 110, 90, 3, 80, 80);
+		Hotel hotel2 = new Hotel("Bridgewood", 150, 50, 4, 110, 50);
+		Hotel hotel3 = new Hotel("Ridgewood", 220, 150, 5, 100, 40);
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.add(hotel1);
+		hotelReservation.add(hotel2);
+		hotelReservation.add(hotel3);
+		Map<Hotel, Integer> result = hotelReservation.getCheapestAndBestRatedHotels("11Sep2020", "12Sep2020");
+		result.forEach(
+				(k, v) -> System.out.println(k.getName() + ", Rating : " + k.getRating() + " and Total Rate " + v));
+		assertNotNull(result);
+
 	}
 }
