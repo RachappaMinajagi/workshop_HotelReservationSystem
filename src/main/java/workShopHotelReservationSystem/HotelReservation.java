@@ -7,6 +7,7 @@ package workShopHotelReservationSystem;
  * UC3:- Ability to add weekday and weekend rates for each Hotel
  * UC4:- Ability to find the cheapest Hotel for a given Date Range based on weekday
    and weekend
+   UC5:- Ability to add ratings to each Hotel - Lakewood is 3, Bridgewood is 4 and Ridgewood 5
  */
 
 import java.time.LocalDate;
@@ -19,11 +20,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-/**
- * creating ArrayList of type Hotel to store all the Hotels getting Hotel into
- * object and adding into the array list for testing purpose
- */
 
 public class HotelReservation {
 	private List<Hotel> hotels;
