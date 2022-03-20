@@ -1,19 +1,13 @@
 package workShopHotelReservationSystem;
 
 public class Hotel {
-	/*
-	 * Create Class For Hotel
-	 */
+
 	private String name;
 	private int regularWeekdayRate;
 	private int regularWeekendRate;
 	private int rewardsWeekdayRate;
 	private int rewardsWeekendRate;
 	private int rating;
-
-	/*
-	 * Create a Constructor
-	 */
 
 	public Hotel(String name, int regularWeekdayRate, int regularWeekendRate, int rewardsWeekdayRate,
 			int rewardsWeekendRate, int rating) {
@@ -24,10 +18,6 @@ public class Hotel {
 		this.rewardsWeekendRate = rewardsWeekendRate;
 		this.rating = rating;
 	}
-
-	/*
-	 * getter and setter Method used For Hotel Reservation system
-	 */
 
 	public String getName() {
 		return name;
@@ -76,5 +66,4 @@ public class Hotel {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-
 }
