@@ -35,7 +35,7 @@ public class HotelReservationTest {
 		hotelReservation.add(hotel1);
 		hotelReservation.add(hotel2);
 		hotelReservation.add(hotel3);
-		Map<Hotel, Integer> result = hotelReservation.searchFor("10Sep2020", "11Sep2020", null);
+		Map<Hotel, Integer> result = hotelReservation.searchFor("10Sep2020", "11Sep2020", null, null);
 		result.forEach((k, v) -> System.out.println(k.getName() + " " + v));
 		assertNotNull(result);
 	}
@@ -70,7 +70,7 @@ public class HotelReservationTest {
 		hotelReservation.add(hotel1);
 		hotelReservation.add(hotel2);
 		hotelReservation.add(hotel3);
-		Map<Hotel, Integer> result = hotelReservation.searchFor("11Sep2020", "12Sep2020", null);
+		Map<Hotel, Integer> result = hotelReservation.searchFor("11Sep2020", "12Sep2020", null, null);
 		result.forEach((k, v) -> System.out.println(k.getName() + " " + v));
 		assertNotNull(result);
 	}
@@ -98,7 +98,7 @@ public class HotelReservationTest {
 	 * / cheapest best rated hotels.
 	 */
 	@Test
-	public void whenGivenDateRange_ShouldReturn_CheapestBestRatedHotels() {
+	public void whenGivenDateRange_ShouldReturn_CheapestBestRatedHotels() throws Exception {
 		Hotel hotel1 = new Hotel("Lakewood", 110, 90, 80, 80, 3);
 		Hotel hotel2 = new Hotel("Bridgewood", 150, 50, 110, 50, 4);
 		Hotel hotel3 = new Hotel("Ridgewood", 220, 150, 100, 40, 5);
@@ -106,7 +106,7 @@ public class HotelReservationTest {
 		hotelReservation.add(hotel1);
 		hotelReservation.add(hotel2);
 		hotelReservation.add(hotel3);
-		Map<Hotel, Integer> result = hotelReservation.getCheapestAndBestRatedHotels("11Sep2020", "12Sep2020");
+		Map<Hotel, Integer> result = hotelReservation.getCheapestAndBestRatedHotels("11Sep2020", "12Sep2020", null);
 		result.forEach(
 				(k, v) -> System.out.println(k.getName() + ", Rating : " + k.getRating() + " and Total Rate " + v));
 		assertNotNull(result);
@@ -137,7 +137,7 @@ public class HotelReservationTest {
 	 * /cheapest best rated hotel for rewards customer.
 	 */
 	@Test
-	public void whenGivenDateRange_ShouldReturn_CheapestAndBestRatedHotelForRewardsCustomer() {
+	public void whenGivenDateRange_ShouldReturn_CheapestAndBestRatedHotelForRewardsCustomer() throws InvalidCustomerException, InvalidDateRangeException {
 		Hotel hotel1 = new Hotel("Lakewood", 110, 90, 3, 80, 80);
 		Hotel hotel2 = new Hotel("Bridgewood", 150, 50, 4, 110, 50);
 		Hotel hotel3 = new Hotel("Ridgewood", 220, 150, 5, 100, 40);
@@ -145,10 +145,34 @@ public class HotelReservationTest {
 		hotelReservation.add(hotel1);
 		hotelReservation.add(hotel2);
 		hotelReservation.add(hotel3);
-		Map<Hotel, Integer> result = hotelReservation.getCheapestAndBestRatedHotels("11Sep2020", "12Sep2020");
+		Map<Hotel, Integer> result = hotelReservation.getCheapestAndBestRatedHotels("11Sep2020", "12Sep2020", null);
 		result.forEach(
 				(k, v) -> System.out.println(k.getName() + ", Rating : " + k.getRating() + " and Total Rate " + v));
 		assertNotNull(result);
 
 	}
+	
+	/*
+	 * /cheapest best rated hotel for rewards customer.
+	 */
+	 @Test
+	    public void whenGivenDateRangeShouldReturnCheapestAndBestRatedHotelForRewardsCustomer() 
+	    {
+	        Hotel hotel1 = new Hotel("Lakewood", 110, 90, 3, 80, 80);
+	        Hotel hotel2 = new Hotel("Bridgewood", 150, 50, 4, 110, 50);
+	        Hotel hotel3 = new Hotel("Ridgewood", 220, 150, 5, 100, 40);
+	        HotelReservation hotelReservation = new HotelReservation();
+	        hotelReservation.add(hotel1);
+	        hotelReservation.add(hotel2);
+	        hotelReservation.add(hotel3);
+	        Map<Hotel, Integer> result;
+	        try {
+	            result = hotelReservation.getCheapestAndBestRatedHotels("11Sep2020", "12Sep2020", "reward");
+	            result.forEach(
+	                    (k, v) -> System.out.println(k.getName() + ", Rating : " + k.getRating() + " and Total Rate " + v));
+	            assertNotNull(result);
+	        } catch (InvalidCustomerException | InvalidDateRangeException e) {
+	            e.getMessage();
+	        }
+	    }
 }
