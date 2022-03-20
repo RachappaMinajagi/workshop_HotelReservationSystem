@@ -1,7 +1,7 @@
 package workShopHotelReservationSystem;
 
 /**
- * Displaying WellCome Message
+ * Displaying WellCome Message 
  *
  */
 public class App {
