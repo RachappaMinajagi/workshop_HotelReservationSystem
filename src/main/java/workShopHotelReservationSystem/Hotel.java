@@ -10,6 +10,7 @@ public class Hotel {
 	private int rewardsWeekdayRate;
 	private int rewardsWeekendRate;
 	private int rating;
+
 	/*
 	 * Create a Constructor
 	 */

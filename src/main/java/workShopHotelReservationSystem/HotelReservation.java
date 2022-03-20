@@ -1,5 +1,12 @@
 package workShopHotelReservationSystem;
 
+/** 
+ * UC1:- Ability to add Hotel in a Hotel Reservation System with Name and
+ * rates for Regular Customer...
+ * UC2:- Ability to find the cheapest Hotel for a given Date Range
+ * UC3:- Ability to add weekday and weekend rates for each Hotel
+ */
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
@@ -18,20 +25,26 @@ public class HotelReservation {
 		this.hotels = new ArrayList<Hotel>();
 	}
 
-	/*
-	 * / add hotel.
+	/**
+	 * take the size of an array list for testing process
 	 */
-	public void add(Hotel hotel) // add hotel.
-	{
+	public void add(Hotel hotel) {
 		this.hotels.add(hotel);
 	}
 
 	public List<Hotel> getHotelList() {
 		return this.hotels;
 	}
+
 	/*
-	 * Create a Map to key and Value Key Search for Integer And Value Search For
-	 * String
+	 * 
+	 * @param start - start date
+	 * 
+	 * @param end- end date
+	 * 
+	 * @return -return to method created
+	 * 
+	 * @throws ParseException -throws exception
 	 */
 
 	public Map<Integer, Hotel> searchFor(String date1, String date2) {
@@ -40,6 +53,12 @@ public class HotelReservation {
 		int weekendDays = totalDays - weekDays;
 		return getCheapestHotels(weekDays, weekendDays);
 	}
+
+	/**
+	 * method to find Cheapest Hotel by comparing from all the hotels
+	 * 
+	 * @return -return to method created
+	 */
 
 	public Map<Integer, Hotel> getCheapestHotels(int weekDays, int weekendDays) {
 		Map<Integer, Hotel> hotelCosts = new HashMap<>();
@@ -80,6 +99,16 @@ public class HotelReservation {
 		return totalWeekDays;
 	}
 
+	/*
+	 * 
+	 * @param start - start date
+	 * 
+	 * @param end- end date
+	 * 
+	 * @return -return to method created
+	 * 
+	 * @throws ParseException -throws exception
+	 */
 	public LocalDate toLocalDate(String date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMMyyyy");
 		LocalDate localDate = LocalDate.parse(date, formatter);
