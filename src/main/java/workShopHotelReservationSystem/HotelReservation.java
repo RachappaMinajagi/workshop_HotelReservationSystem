@@ -8,6 +8,9 @@ package workShopHotelReservationSystem;
  * UC4:- Ability to find the cheapest Hotel for a given Date Range based on weekday
    and weekend
    UC5:- Ability to add ratings to each Hotel - Lakewood is 3, Bridgewood is 4 and Ridgewood 5
+   UC6:- Ability to find the cheapest best rated hotel Hotel for a given Date Range
+        - I/P – 11Sep2020, 12Sep2020
+        - O/P – Bridgewood, Rating: 4 and Total Rates:200
  */
 
 import java.time.LocalDate;
@@ -16,6 +19,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +28,9 @@ import java.util.Map;
 public class HotelReservation {
 	private List<Hotel> hotels;
 
+	/*
+	 * Create Constructor For HotelReservation
+	 */
 	public HotelReservation() {
 		this.hotels = new ArrayList<Hotel>();
 	}
@@ -42,6 +49,9 @@ public class HotelReservation {
 		int weekendDays = totalDays - weekDays;
 		return getCheapestHotels(weekDays, weekendDays);
 	}
+	/*
+	 * Create a ArrayList for Hotel
+	 */
 
 	public Map<Hotel, Integer> getCheapestHotels(int weekDays, int weekendDays) {
 		Map<Hotel, Integer> hotelCosts = new HashMap<>();
@@ -58,6 +68,10 @@ public class HotelReservation {
 		return sortedHotelCosts;
 	}
 
+	/*
+	 * Create Method for Total Days Start and End Date
+	 */
+
 	public int countTotalDays(String date1, String date2) {
 
 		LocalDate startDate = toLocalDate(date1);
@@ -65,6 +79,10 @@ public class HotelReservation {
 		int totalDays = Period.between(startDate, endDate).getDays() + 1;
 		return totalDays;
 	}
+
+	/*
+	 * Create Method For WeekDays
+	 */
 
 	public int countWeekDays(String date1, String date2) {
 
@@ -87,6 +105,24 @@ public class HotelReservation {
 
 		return weekDays;
 	}
+
+	/*
+	 * Create A array List For key value For Hotel reservation system
+	 */
+	public Map<Hotel, Integer> getCheapestAndBestRatedHotels(String date1, String date2) {
+		Map<Hotel, Integer> bestHotels = new HashMap<Hotel, Integer>();
+		Map<Hotel, Integer> cheapestHotels = searchFor(date1, date2);
+		int highestRating = (cheapestHotels.keySet().stream().max(Comparator.comparingInt(Hotel::getRating)).get())
+				.getRating();
+		cheapestHotels.forEach((k, v) -> {
+			if (k.getRating() == highestRating)
+				bestHotels.put(k, v);
+		});
+		return bestHotels;
+	}
+	/*
+	 * Create Local DateMethod
+	 */
 
 	public LocalDate toLocalDate(String date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMMyyyy");
