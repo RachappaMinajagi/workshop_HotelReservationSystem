@@ -11,6 +11,10 @@ package workShopHotelReservationSystem;
    UC6:- Ability to find the cheapest best rated hotel Hotel for a given Date Range
         - I/P – 11Sep2020, 12Sep2020
         - O/P – Bridgewood, Rating: 4 and Total Rates:200
+   UC7:-Ability to find getCheapest And BestRated Hotels  
+      a given Date Range
+      I/P – 11Sep2020, 12Sep2020
+      O/P - Ridgewood & Total rate 370.
  */
 
 import java.time.LocalDate;
@@ -105,6 +109,21 @@ public class HotelReservation {
 
 		return weekDays;
 	}
+	/*
+	 * Create A array List For getCheapestAndBestRatedHotels key value For Hotel reservation system
+	 */
+	
+	public Map<Hotel, Integer> getCheapestAndBestRatedHotels1(String date1, String date2) {
+        Map<Hotel, Integer> bestHotels = new HashMap<Hotel, Integer>();
+        Map<Hotel, Integer> cheapestHotels = searchFor(date1, date2);
+        int highestRating = (cheapestHotels.keySet().stream().max(Comparator.comparingInt(Hotel::getRating)).get())
+                .getRating();
+        cheapestHotels.forEach((k, v) -> {
+            if (k.getRating() == highestRating)
+                bestHotels.put(k, v);
+        });
+        return bestHotels;
+    }
 
 	/*
 	 * Create A array List For key value For Hotel reservation system
